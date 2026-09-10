@@ -4,8 +4,8 @@
   "private": true,
   "description": "Full-stack Zerodha clone featuring Kite trading dashboard, landing pages, and AI copilot",
   "scripts": {
-    "build": "cd dashboard && npm install && npm run build",
-    "start": "cd dashboard && npm start"
+    "build": "npm --prefix dashboard install && npm --prefix dashboard run build",
+    "start": "npm --prefix dashboard start"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
