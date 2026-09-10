@@ -1,0 +1,358 @@
+/* Kite AI Copilot Styles */
+
+/* Floating Launcher Button */
+.kite-ai-launcher {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #387ed1 0%, #1e5bb8 100%);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(56, 126, 209, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: 0.3px;
+}
+
+.kite-ai-launcher:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56, 126, 209, 0.55);
+  background: linear-gradient(135deg, #438be0 0%, #2264c7 100%);
+}
+
+.kite-ai-sparkle-icon {
+  font-size: 18px;
+  animation: kiteSparklePulse 2s infinite ease-in-out;
+}
+
+@keyframes kiteSparklePulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.18) rotate(15deg); }
+}
+
+/* Chat Drawer Overlay & Container */
+.kite-ai-drawer {
+  position: fixed;
+  bottom: 24px;
+  right: 28px;
+  width: 420px;
+  max-width: calc(100vw - 32px);
+  height: 600px;
+  max-height: calc(100vh - 48px);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: kiteDrawerSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+@keyframes kiteDrawerSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Drawer Header */
+.kite-ai-header {
+  padding: 16px 18px;
+  background: #ffffff;
+  border-bottom: 1px solid #ebebeb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kite-ai-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kite-ai-logo-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: #eef5fc;
+  color: #387ed1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.kite-ai-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #333333;
+  line-height: 1.2;
+}
+
+.kite-ai-subtitle {
+  font-size: 11px;
+  color: #777777;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.kite-ai-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #26a69a;
+}
+
+.kite-ai-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kite-ai-icon-btn {
+  background: none;
+  border: none;
+  color: #666;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.15s ease;
+}
+
+.kite-ai-icon-btn:hover {
+  background: #f0f0f0;
+  color: #222;
+}
+
+/* Chat Body */
+.kite-ai-body {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  background-color: #f9fbfd;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Quick Prompt Chips */
+.kite-ai-chips-wrapper {
+  margin-bottom: 8px;
+}
+
+.kite-ai-chips-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kite-ai-chips-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.kite-ai-chip {
+  background: #ffffff;
+  border: 1px solid #dbe5ef;
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: #387ed1;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.kite-ai-chip:hover {
+  background: #eef5fc;
+  border-color: #387ed1;
+  transform: translateY(-1px);
+}
+
+/* Messages */
+.kite-ai-message-row {
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.kite-ai-message-row.user {
+  justify-content: flex-end;
+}
+
+.kite-ai-message-row.assistant {
+  justify-content: flex-start;
+}
+
+.kite-ai-bubble {
+  max-width: 88%;
+  padding: 12px 15px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.kite-ai-message-row.user .kite-ai-bubble {
+  background: #387ed1;
+  color: #ffffff;
+  border-bottom-right-radius: 3px;
+  box-shadow: 0 2px 8px rgba(56, 126, 209, 0.25);
+}
+
+.kite-ai-message-row.assistant .kite-ai-bubble {
+  background: #ffffff;
+  color: #2d3748;
+  border: 1px solid #e2e8f0;
+  border-bottom-left-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+/* Action Button inside AI response */
+.kite-ai-action-card {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #edf2f7;
+}
+
+.kite-ai-action-btn {
+  background: #387ed1;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s ease;
+}
+
+.kite-ai-action-btn:hover {
+  background: #256bb8;
+}
+
+/* Loading indicator */
+.kite-ai-typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.kite-ai-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #387ed1;
+  animation: kiteDotBlink 1.4s infinite both;
+}
+
+.kite-ai-dot:nth-child(2) { animation-delay: 0.2s; }
+.kite-ai-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes kiteDotBlink {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Footer / Input Area */
+.kite-ai-footer {
+  padding: 12px 16px;
+  background: #ffffff;
+  border-top: 1px solid #ebebeb;
+}
+
+.kite-ai-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f4f6f8;
+  border: 1px solid #d9e1e8;
+  border-radius: 24px;
+  padding: 4px 6px 4px 14px;
+  transition: border-color 0.15s ease;
+}
+
+.kite-ai-form:focus-within {
+  border-color: #387ed1;
+  background: #ffffff;
+}
+
+.kite-ai-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13.5px;
+  color: #333;
+}
+
+.kite-ai-input::placeholder {
+  color: #999;
+}
+
+.kite-ai-send-btn {
+  background: #387ed1;
+  color: #fff;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.15s ease;
+}
+
+.kite-ai-send-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.kite-ai-send-btn:not(:disabled):hover {
+  background: #256bb8;
+}
+
+.kite-ai-disclaimer {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 10px;
+  color: #999;
+}

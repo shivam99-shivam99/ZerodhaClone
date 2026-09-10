@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: #444;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Ensure headings maintain crisp proportions */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans', sans-serif;
+  color: #444;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.topbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  padding: 0 20px;
+}
+
+.indices-container {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding-right: 30px;
+  border-right: 1px solid #eee;
+  height: 100%;
+}
+
+.nifty, .sensex {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.index-name {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #444;
+}
+
+.index-value {
+  margin: 0;
+  font-size: 12px;
+  color: #df514c;
+}
+
+.index-percent {
+  margin: 0;
+  font-size: 11px;
+  color: #9b9b9b;
+}
