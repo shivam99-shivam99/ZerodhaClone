@@ -1,4 +1,4 @@
-# Zerodha Kite Full-Stack Clone 🚀
+# Zerodha Kite Full-Stack  🚀
 
 A modern, full-stack clone of Zerodha's trading and investment ecosystem, featuring the **Zerodha Landing Platform**, the **Kite Trading Dashboard**, and an intelligent **Kite AI Copilot** powered by Google Gemini 3.6 Flash.
 
