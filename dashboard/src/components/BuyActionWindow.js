@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./BuyActionWindow.css";
 import Toast from "./Toast";
+import { API_BASE_URL } from "../apiConfig";
 
 const BuyActionWindow = ({ uid, initialPrice, onClose }) => {
   const [stockQuantity, setStockQuantity] = useState(1);
@@ -19,7 +20,7 @@ const BuyActionWindow = ({ uid, initialPrice, onClose }) => {
     }
     setLoading(true);
     try {
-      await axios.post("http://localhost:3002/newOrder", {
+      await axios.post(`${API_BASE_URL}/newOrder`, {
         name: uid,
         qty: Number(stockQuantity),
         price: Number(stockPrice),

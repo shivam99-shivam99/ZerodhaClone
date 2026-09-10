@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../apiConfig";
 
 const Dashboard = () => {
   const [allHoldings, setAllHoldings] = useState([]);
@@ -17,7 +18,7 @@ const Dashboard = () => {
     }
 
     axios
-      .get("http://localhost:3002/allHoldings")
+      .get(`${API_BASE_URL}/allHoldings`)
       .then((res) => setAllHoldings(res.data))
       .catch((err) => console.error("Dashboard fetch error:", err))
       .finally(() => setLoading(false));

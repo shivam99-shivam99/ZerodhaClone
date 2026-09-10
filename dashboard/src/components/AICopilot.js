@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import { GeneralContext } from "./GeneralContext";
 import "./AICopilot.css";
+import { API_BASE_URL } from "../apiConfig";
 
 const QUICK_PROMPTS = [
   "📊 Portfolio Health",
@@ -44,7 +45,7 @@ function AICopilot() {
 
     try {
       // Send request to Express backend
-      const response = await axios.post("http://localhost:3002/api/ai/copilot", {
+      const response = await axios.post(`${API_BASE_URL}/ai/copilot`, {
         message: textToSend,
       });
 

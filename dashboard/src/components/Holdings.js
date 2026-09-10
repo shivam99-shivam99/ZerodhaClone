@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { VerticalGraph } from "./VerticalGraph";
+import { API_BASE_URL } from "../apiConfig";
 
 const Holdings = () => {
   const [allHoldings, setAllHoldings] = useState([]);
@@ -10,7 +11,7 @@ const Holdings = () => {
   useEffect(() => {
     const fetchHoldingsData = async () => {
       try {
-        const response = await axios.get("http://localhost:3002/allHoldings");
+        const response = await axios.get(`${API_BASE_URL}/allHoldings`);
         setAllHoldings(response.data);
       } catch (err) {
         console.error("Error fetching holdings data:", err);

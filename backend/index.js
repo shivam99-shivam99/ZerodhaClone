@@ -28,14 +28,25 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Middleware to parse incoming JSON payload requests
-app.use(express.json());
+// Root health check to prevent "Cannot GET /"
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Zerodha Clone Backend API is running',
+    timestamp: new Date().toISOString()
+  });
+});
+app.get('/api', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Zerodha Clone Backend API is running',
+    timestamp: new Date().toISOString()
+  });
+});
 
-
-// 0. AUTH ROUTES
 
 // POST: Sign up new user
-app.post('/signup', async (req, res) => {
+app.post(['/signup', '/api/signup'], async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -90,7 +101,7 @@ app.post('/signup', async (req, res) => {
 });
 
 // POST: Sign in / Login user
-app.post('/login', async (req, res) => {
+app.post(['/login', '/api/login'], async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -134,7 +145,7 @@ app.post('/login', async (req, res) => {
 });
 
 // GET: Verify JWT token
-app.get('/verify', (req, res) => {
+app.get(['/verify', '/api/verify'], (req, res) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ success: false, message: 'No token provided' });
@@ -153,7 +164,7 @@ app.get('/verify', (req, res) => {
 // 1. HOLDINGS ROUTES
 
 // GET: Fetch all holdings from database
-app.get('/allHoldings', async (req, res) => {
+app.get(['/allHoldings', '/api/allHoldings'], async (req, res) => {
   try {
     const allHoldings = await HoldingsModel.find({});
     res.status(200).json(allHoldings);
@@ -166,7 +177,7 @@ app.get('/allHoldings', async (req, res) => {
 // 2. POSITIONS ROUTES
 
 // GET: Fetch all positions from database
-app.get('/allPositions', async (req, res) => {
+app.get(['/allPositions', '/api/allPositions'], async (req, res) => {
   try {
     const allPositions = await PositionsModel.find({});
     res.status(200).json(allPositions);
@@ -179,7 +190,7 @@ app.get('/allPositions', async (req, res) => {
 // 3. ORDERS ROUTES
 
 // GET: Fetch all orders from database
-app.get('/allOrders', async (req, res) => {
+app.get(['/allOrders', '/api/allOrders'], async (req, res) => {
   try {
     const allOrders = await OrdersModel.find({}).sort({ _id: -1 });
     res.status(200).json(allOrders);
@@ -189,7 +200,7 @@ app.get('/allOrders', async (req, res) => {
 });
 
 // POST: Place a new order
-app.post('/newOrder', async (req, res) => {
+app.post(['/newOrder', '/api/newOrder'], async (req, res) => {
   try {
     const newOrder = new OrdersModel({
       name: req.body.name,
@@ -209,7 +220,7 @@ app.post('/newOrder', async (req, res) => {
 
 // 4. KITE AI COPILOT ROUTE
 // POST /api/ai/copilot: Receives user question, analyzes MongoDB holdings, and responds with insights
-app.post('/api/ai/copilot', async (req, res) => {
+app.post(['/api/ai/copilot', '/ai/copilot'], async (req, res) => {
   try {
     const userMessage = (req.body.message || req.body.prompt || "").trim();
 

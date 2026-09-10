@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 const navItems = [
-  { label: "Dashboard",  path: "/"          },
-  { label: "Orders",     path: "/orders"    },
-  { label: "Holdings",   path: "/holdings"  },
-  { label: "Positions",  path: "/positions" },
-  { label: "Funds",      path: "/funds"     },
-  { label: "Apps",       path: "/apps"      },
+  { label: "Dashboard",  path: "/dashboard"          },
+  { label: "Orders",     path: "/dashboard/orders"    },
+  { label: "Holdings",   path: "/dashboard/holdings"  },
+  { label: "Positions",  path: "/dashboard/positions" },
+  { label: "Funds",      path: "/dashboard/funds"     },
+  { label: "Apps",       path: "/dashboard/apps"      },
 ];
 
 const Menu = () => {
@@ -33,7 +33,7 @@ const Menu = () => {
     setUser(null);
     setProfileMenuOpen(false);
     // Reload or redirect to login
-    window.location.href = "http://localhost:3001/Login";
+    window.location.href = "/Login";
   };
 
   const getInitials = (name) => {
@@ -50,9 +50,11 @@ const Menu = () => {
   const userEmail = user?.email || "user@kite.zerodha.com";
   const userInitials = getInitials(user?.username);
 
-  // Active path: treat "/" as exact match, others as startsWith
+  // Active path: treat "/dashboard" as exact match, others as startsWith
   const isActive = (path) =>
-    path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
+    path === "/dashboard"
+      ? location.pathname === "/dashboard" || location.pathname === "/dashboard/"
+      : location.pathname.startsWith(path);
 
   return (
     <div
@@ -60,12 +62,14 @@ const Menu = () => {
       style={{ display: "flex", alignItems: "center", gap: "20px", position: "relative" }}
     >
       {/* Logo */}
-      <img
-        src="/kite.png"
-        alt="Kite logo"
-        style={{ width: "30px", height: "auto" }}
-        onError={(e) => { e.target.style.display = "none"; }}
-      />
+      <Link to="/" title="Go to Zerodha Home">
+        <img
+          src="/kite.png"
+          alt="Kite logo"
+          style={{ width: "30px", height: "auto", cursor: "pointer" }}
+          onError={(e) => { e.target.style.display = "none"; }}
+        />
+      </Link>
 
       {/* Nav links */}
       <ul style={{ display: "flex", listStyle: "none", gap: "4px", margin: 0, padding: 0 }}>
@@ -190,7 +194,7 @@ const Menu = () => {
                 </li>
               ) : (
                 <li
-                  onClick={() => { window.location.href = "http://localhost:3001/Login"; }}
+                  onClick={() => { window.location.href = "/Login"; }}
                   style={{ padding: "8px 16px", cursor: "pointer", color: "#387ed1", fontWeight: "500" }}
                   onMouseEnter={(e) => { e.target.style.backgroundColor = "#f0f7ff"; }}
                   onMouseLeave={(e) => { e.target.style.backgroundColor = "transparent"; }}

@@ -1,24 +1,25 @@
 # Zerodha Kite Full-Stack  🚀
 
-A modern, full-stack clone of Zerodha's trading and investment ecosystem, featuring the **Zerodha Landing Platform**, the **Kite Trading Dashboard**, and an intelligent **Kite AI Copilot** powered by Google Gemini 3.6 Flash.
+A modern, full-stack clone of Zerodha's trading and investment ecosystem, featuring the **Zerodha Landing Platform**, the **Kite Trading Dashboard**, and an intelligent **Kite AI Copilot** powered by Google Gemini.
 
 ---
 
 ## 🏗️ Architecture & Project Structure
 
-The project is structured into three decoupled layers:
+The project can be run as a unified full-stack application (ready for **Vercel** deployment) or independently:
 
-| Directory | Role | Tech Stack | Port |
-| :--- | :--- | :--- | :--- |
-| [`frontend/`](./frontend) | Public marketing & landing site | React 19, React Router 7, Vanilla CSS | `3001` |
-| [`dashboard/`](./dashboard) | Kite trading platform (Holdings, Orders, Positions, AI Copilot) | React 19, Chart.js, Emotion/MUI, Axios | `3000` |
-| [`backend/`](./backend) | REST API & Database engine | Node.js, Express, MongoDB (Mongoose), JWT, Google Gemini API | `3002` |
+| Directory | Role | Tech Stack |
+| :--- | :--- | :--- |
+| [`dashboard/`](./dashboard) | **Unified React App**: Landing pages (`/`, `/about`, `/pricing`, `/login`, `/signup`) + Kite Trading Platform (`/dashboard/*`) | React 19, React Router 7, Chart.js, MUI, Axios |
+| [`api/`](./api) | **Serverless REST API**: Vercel-ready serverless function endpoints | Node.js, Express, MongoDB (Mongoose), JWT, Google Gemini |
+| [`backend/`](./backend) | **Standalone Express Backend**: For local standalone development | Node.js, Express, MongoDB, Port `3002` |
+| [`frontend/`](./frontend) | *Legacy standalone landing pages* | Preserved for reference |
 
 ---
 
 ## ✨ Key Features
 
-- **📊 Kite Trading Dashboard**:
+- **📊 Kite Trading Dashboard (`/dashboard`)**:
   - Live Watchlist with real-time stock price changes.
   - Interactive Holdings & Positions tracking with automatic P&L and investment calculations.
   - Buy/Sell order windows with instant execution and MongoDB persistence.
@@ -27,51 +28,54 @@ The project is structured into three decoupled layers:
   - Live portfolio audits (calculates diversification health score, total profit/loss, and risk factors).
   - Stock deep-dive analysis (average buy price, returns, trailing stop-loss recommendations).
   - Quick trade action triggering (`⚡ Open Buy Window`) directly inside the chat interface.
-  - Powered by **Google Gemini 3.6 Flash** with a built-in deterministic heuristic rule engine fallback.
-- **🌐 Zerodha Landing Site**:
-  - Clean responsive landing pages (Hero, Signup, Login, Products, Pricing).
-  - Authentication flow connected to the backend.
+  - Powered by **Google Gemini** with a built-in deterministic heuristic rule engine fallback.
+- **🌐 Zerodha Landing Platform (`/`)**:
+  - Clean responsive landing pages (Hero, Signup, Login, Products, Pricing, Support).
+  - Integrated authentication redirecting directly to the Kite Dashboard.
 
 ---
 
-## ⚡ Quick Start
+## 🚀 1-Click Deployment to Vercel
 
-### 1. Prerequisites
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) or local MongoDB instance
+This repository is pre-configured with [`vercel.json`](./vercel.json) to deploy both the React frontend and the Express serverless API together.
 
-### 2. Backend Setup
+### Deployment Steps:
+1. Push this repository to GitHub:
+   ```bash
+   git add .
+   git commit -m "feat: unified frontend and dashboard for Vercel deployment"
+   git push origin main
+   ```
+2. In **Vercel Dashboard**, click **Add New...** → **Project** → Import your GitHub repository (`shivam99-shivam99/ZerodhaClone`).
+3. Set **Framework Preset** to **Other** (or **Create React App**).
+4. Add the following **Environment Variables** in Vercel:
+   - `MONGO_URL`: Your MongoDB Atlas connection string (`mongodb+srv://...`)
+   - `JWT_SECRET`: A secure secret string for JWT authentication
+   - `GEMINI_API_KEY`: *(Optional)* Your Google Gemini API key for AI Copilot
+5. Click **Deploy**!
+   - Root `/` serves the Zerodha landing pages.
+   - `/dashboard` serves the Kite trading platform.
+   - `/api/*` routes to the serverless Express API.
+
+---
+
+## ⚡ Local Development
+
+### 1. Unified App (Recommended)
 ```bash
+# Start backend API (Port 3002)
 cd backend
 npm install
-```
-Create a `.env` file in the `backend/` directory (see `.env.example`):
-```properties
-PORT=3002
-MONGO_URL=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-GEMINI_API_KEY=your_gemini_api_key   # Optional: Google Gemini AI Copilot
-```
-Start the server:
-```bash
 npm start
-```
 
-### 3. Dashboard Setup (Kite Trading Platform)
-```bash
+# In a separate terminal, start unified React app (Port 3000)
 cd dashboard
 npm install
 npm start
 ```
-Opens on [http://localhost:3000](http://localhost:3000).
-
-### 4. Frontend Setup (Landing Site)
-```bash
-cd frontend
-npm install
-npm start
-```
-Opens on [http://localhost:3001](http://localhost:3001).
+- Landing pages: [http://localhost:3000](http://localhost:3000)
+- Kite Dashboard: [http://localhost:3000/dashboard](http://localhost:3000/dashboard)
+- Backend API: [http://localhost:3002](http://localhost:3002)
 
 ---
 
@@ -82,9 +86,3 @@ Run automated tests for the Kite AI Copilot component:
 cd dashboard
 npm test -- AICopilot.test.js --watchAll=false
 ```
-
----
-
-## 🛡️ Security Note
-
-Environment configuration files (`.env`) and credentials are automatically ignored via `.gitignore` to prevent secret leakage. Use `backend/.env.example` as a template for your own environment setup.
