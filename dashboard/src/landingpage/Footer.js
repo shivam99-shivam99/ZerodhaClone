@@ -1,4 +1,49 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+const ACCOUNT_LINKS = [
+  { name: "Open demat account", path: "/signup" },
+  { name: "Minor demat account", path: "/signup" },
+  { name: "NRI demat account", path: "/signup" },
+  { name: "HUF demat account", path: "/signup" },
+  { name: "Commodity", path: "/products" },
+  { name: "Dematerialisation", path: "/support" },
+  { name: "Fund transfer", path: "/support" },
+  { name: "MTF", path: "/products" },
+];
+
+const SUPPORT_LINKS = [
+  { name: "Contact us", path: "/about" },
+  { name: "Support portal", path: "/support" },
+  { name: "How to file a complaint?", path: "/support" },
+  { name: "Status of your complaints", path: "/support" },
+  { name: "Bulletin", path: "/support" },
+  { name: "Circular", path: "/support" },
+  { name: "Z-Connect blog", path: "/about" },
+  { name: "Downloads", path: "/support" },
+];
+
+const COMPANY_LINKS = [
+  { name: "About", path: "/about" },
+  { name: "Philosophy", path: "/about" },
+  { name: "Press & media", path: "/about" },
+  { name: "Careers", path: "/about" },
+  { name: "Zerodha Cares (CSR)", path: "/about" },
+  { name: "Zerodha.tech", path: "/about" },
+  { name: "Open source", path: "/about" },
+  { name: "Referral program", path: "/pricing" },
+];
+
+const QUICK_LINKS = [
+  { name: "Upcoming IPOs", path: "/products" },
+  { name: "Brokerage charges", path: "/pricing" },
+  { name: "Market holidays", path: "/support" },
+  { name: "Economic calendar", path: "/products" },
+  { name: "Calculators", path: "/pricing" },
+  { name: "Markets", path: "/products" },
+  { name: "Sectors", path: "/products" },
+  { name: "Gift Nifty", path: "/products" },
+];
 
 function Footer() {
   return (
@@ -9,7 +54,7 @@ function Footer() {
           {/* Column 1: Logo, Social Icons, App Store Badges */}
           <div className="col-lg-3 col-md-6 mb-4">
             <img
-               src="/logo.svg"
+              src="/logo.svg"
               style={{ width: "50%", minWidth: "120px" }}
               alt="Zerodha Logo"
               className="mb-3"
@@ -22,35 +67,35 @@ function Footer() {
 
             {/* First Row of Social Icons */}
             <div className="text-muted fs-5 d-flex gap-3 mb-3">
-              <a href="#" className="text-muted"><i className="fa-brands fa-x-twitter"></i></a>
-              <a href="#" className="text-muted"><i className="fa-brands fa-square-facebook"></i></a>
-              <a href="#" className="text-muted"><i className="fa-brands fa-instagram"></i></a>
-              <a href="#" className="text-muted"><i className="fa-brands fa-linkedin-in"></i></a>
+              <Link to="/about" className="text-muted"><i className="fa-brands fa-x-twitter"></i></Link>
+              <Link to="/about" className="text-muted"><i className="fa-brands fa-square-facebook"></i></Link>
+              <Link to="/about" className="text-muted"><i className="fa-brands fa-instagram"></i></Link>
+              <Link to="/about" className="text-muted"><i className="fa-brands fa-linkedin-in"></i></Link>
             </div>
 
             {/* Second Row of Social Icons */}
             <div className="text-muted fs-5 d-flex gap-3 mb-4">
-              <a href="#" className="text-muted"><i className="fa-brands fa-youtube"></i></a>
-              <a href="#" className="text-muted"><i className="fa-brands fa-whatsapp"></i></a>
-              <a href="#" className="text-muted"><i className="fa-brands fa-telegram"></i></a>
+              <Link to="/about" className="text-muted"><i className="fa-brands fa-youtube"></i></Link>
+              <Link to="/about" className="text-muted"><i className="fa-brands fa-whatsapp"></i></Link>
+              <Link to="/about" className="text-muted"><i className="fa-brands fa-telegram"></i></Link>
             </div>
 
             {/* App Store / Google Play Store Badges */}
             <div className="d-flex gap-2 align-items-center">
-              <a href="#">
+              <Link to="/products">
                 <img
                   src="/googlePlayBadge.svg"
                   alt="Get it on Google Play"
                   style={{ width: "115px" }}
                 />
-              </a>
-              <a href="#">
+              </Link>
+              <Link to="/products">
                 <img
                   src="/appstoreBadge.svg"
                   alt="Download on the App Store"
                   style={{ width: "115px" }}
                 />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -58,14 +103,13 @@ function Footer() {
           <div className="col-lg-2 col-md-6 mb-4">
             <h6 className="fw-bold text-dark mb-3">Account</h6>
             <ul className="list-unstyled small text-muted lh-lg">
-              <li><a href="#" className="text-decoration-none text-muted">Open demat account</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Minor demat account</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">NRI demat account</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">HUF demat account</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Commodity</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Dematerialisation</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Fund transfer</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">MTF</a></li>
+              {ACCOUNT_LINKS.map((link, idx) => (
+                <li key={idx}>
+                  <Link to={link.path} className="text-decoration-none text-muted">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -73,14 +117,13 @@ function Footer() {
           <div className="col-lg-2 col-md-6 mb-4">
             <h6 className="fw-bold text-dark mb-3">Support</h6>
             <ul className="list-unstyled small text-muted lh-lg">
-              <li><a href="#" className="text-decoration-none text-muted">Contact us</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Support portal</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">How to file a complaint?</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Status of your complaints</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Bulletin</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Circular</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Z-Connect blog</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Downloads</a></li>
+              {SUPPORT_LINKS.map((link, idx) => (
+                <li key={idx}>
+                  <Link to={link.path} className="text-decoration-none text-muted">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -88,29 +131,27 @@ function Footer() {
           <div className="col-lg-2 col-md-6 mb-4">
             <h6 className="fw-bold text-dark mb-3">Company</h6>
             <ul className="list-unstyled small text-muted lh-lg">
-              <li><a href="#" className="text-decoration-none text-muted">About</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Philosophy</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Press & media</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Careers</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Zerodha Cares (CSR)</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Zerodha.tech</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Open source</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Referral program</a></li>
+              {COMPANY_LINKS.map((link, idx) => (
+                <li key={idx}>
+                  <Link to={link.path} className="text-decoration-none text-muted">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Column 5: Quick links & Markets */}
+          {/* Column 5: Quick links */}
           <div className="col-lg-3 col-md-6 mb-4">
             <h6 className="fw-bold text-dark mb-3">Quick links</h6>
             <ul className="list-unstyled small text-muted lh-lg mb-3">
-              <li><a href="#" className="text-decoration-none text-muted">Upcoming IPOs</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Brokerage charges</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Market holidays</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Economic calendar</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Calculators</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Markets</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Sectors</a></li>
-              <li><a href="#" className="text-decoration-none text-muted">Gift Nifty</a></li>
+              {QUICK_LINKS.map((link, idx) => (
+                <li key={idx}>
+                  <Link to={link.path} className="text-decoration-none text-muted">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -124,7 +165,7 @@ function Footer() {
             Procedure to file a complaint on SEBI SCORES: Register on SCORES portal. Mandatory details for filing complaints on SCORES: Name, PAN, Address, Mobile Number, E-mail ID. Benefits: Effective Communication, Speedy redressal of the grievances
           </p>
           <p>
-            <a href="#" className="text-primary text-decoration-none fw-bold me-2">Smart Online Dispute Resolution</a> | <a href="#" className="text-primary text-decoration-none fw-bold">Grievances Redressal Mechanism</a>
+            <Link to="/support" className="text-primary text-decoration-none fw-bold me-2">Smart Online Dispute Resolution</Link> | <Link to="/support" className="text-primary text-decoration-none fw-bold ms-2">Grievances Redressal Mechanism</Link>
           </p>
           <p>
             Investments in securities market are subject to market risks; read all the related documents carefully before investing.
@@ -133,7 +174,7 @@ function Footer() {
             Attention investors: 1) Stock brokers can accept securities as margins from clients only by way of pledge in the depository system w.e.f September 01, 2020. 2) Update your e-mail and phone number with your stock broker / depository participant and receive OTP directly from depository on your e-mail and/or mobile number to create pledge. 3) Check your securities / MF / bonds in the consolidated account statement issued by NSDL/CDSL every month.
           </p>
           <p>
-            India's largest broker based on networth as per NSE. <a href="#" className="text-primary text-decoration-none">NSE broker factsheet</a>
+            India's largest broker based on networth as per NSE. <Link to="/about" className="text-primary text-decoration-none">NSE broker factsheet</Link>
           </p>
           <p>
             "Prevent unauthorised transactions in your account. Update your mobile numbers/email IDs with your stock brokers/depository participants. Receive information of your transactions directly from Exchange/Depositories on your mobile/email at the end of the day. Issued in the interest of investors. KYC is one time exercise while dealing in securities markets - once KYC is done through a SEBI registered intermediary (broker, DP, Mutual Fund etc.), you need not undergo the same process again when you approach another intermediary." Dear Investor, if you are subscribing to an IPO, there is no need to issue a cheque. Please write the Bank account number and sign the IPO application form to authorize your bank to make payment in case of allotment. In case of non allotment the funds will remain in your bank account. As a business we don't give stock tips, and have not authorized anyone to trade on behalf of others. If you find anyone claiming to be part of Zerodha and offering such services, please create a ticket here.
@@ -141,24 +182,6 @@ function Footer() {
           <p>
             *Customers availing insurance advisory services offered by Ditto (Tacterial Consulting Private Limited | IRDAI Registered Corporate Agent (Composite) License No CA0738) will not have access to the exchange investor grievance redressal forum, SEBI SCORES/ODR, or arbitration mechanism for such products.
           </p>
-          <p>
-            Fixed deposit products offered on this platform are third-party products (TPP) and are not Exchange traded products. These are offered through Blostem Fintech Private Limited. Zerodha Broking Limited (SEBI Registration No.: INZ000031633) is acting solely as a distributor for these products. Any disputes arising with respect to such distribution activity will not have access to SEBI SCORES/ODR, Exchange Investor Grievance Redressal Forum, or Arbitration mechanism. Fixed deposits are regulated by the Reserve Bank of India (RBI).
-          </p>
-        </div>
-
-        {/* Bottom Policy Links Bar */}
-        <div className="d-flex flex-wrap justify-content-center gap-3 pt-3 border-top mt-4" style={{ fontSize: "12px" }}>
-          <a href="#" className="text-muted text-decoration-none">NSE</a>
-          <a href="#" className="text-muted text-decoration-none">BSE</a>
-          <a href="#" className="text-muted text-decoration-none">MCX</a>
-          <a href="#" className="text-muted text-decoration-none">MSEI</a>
-          <a href="#" className="text-muted text-decoration-none">Terms & conditions</a>
-          <a href="#" className="text-muted text-decoration-none">Policies & procedures</a>
-          <a href="#" className="text-muted text-decoration-none">Privacy policy</a>
-          <a href="#" className="text-muted text-decoration-none">Disclosure</a>
-          <a href="#" className="text-muted text-decoration-none">For investor's attention</a>
-          <a href="#" className="text-muted text-decoration-none">Investor charter</a>
-          <a href="#" className="text-muted text-decoration-none">Sitemap</a>
         </div>
       </div>
     </footer>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_BASE_URL } from "../../apiConfig";
 
 function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -16,6 +17,7 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+  const [imgError, setImgError] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,54 +28,62 @@ function Signup() {
     if (error) setError("");
   };
 
+  const validateForm = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!formData.username.trim()) {
+      setError("Please enter your full name.");
+      return false;
+    }
+
+    if (!formData.email.trim() || !emailRegex.test(formData.email.trim())) {
+      setError("Please enter a valid email address.");
+      return false;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters long.");
+      return false;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match.");
+      return false;
+    }
+
+    if (!formData.agreeTerms) {
+      setError("Please accept the terms and conditions.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setSuccessMsg("");
 
-    if (!formData.username.trim()) {
-      setError("Please enter your full name");
-      return;
-    }
-
-    if (!formData.email.trim() || !formData.email.includes("@")) {
-      setError("Please enter a valid email address");
-      return;
-    }
-
-    if (formData.password.length < 6) {
-      setError("Password must be at least 6 characters long");
-      return;
-    }
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
-    if (!formData.agreeTerms) {
-      setError("Please accept the terms and conditions");
-      return;
-    }
+    if (!validateForm()) return;
 
     setLoading(true);
 
     try {
       const response = await axios.post(`${API_BASE_URL}/signup`, {
-        username: formData.username,
-        email: formData.email,
+        username: formData.username.trim(),
+        email: formData.email.trim(),
         password: formData.password,
       });
 
       if (response.data.success) {
         setSuccessMsg("Account created successfully! Redirecting to dashboard...");
-        // Save auth data
+
+        // Store authentication token and user payload
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
 
         setTimeout(() => {
-          // Open or redirect to dashboard
-          window.location.href = "/dashboard";
+          navigate("/dashboard");
         }, 1500);
       }
     } catch (err) {
@@ -112,20 +122,20 @@ function Signup() {
         >
           {/* Left Column: Benefits & Trust Highlights */}
           <div className="col-lg-5 mb-4 mb-lg-0 pe-lg-4 border-end-lg">
-            <div style={{ textAlign: "center", marginBottom: "25px" }}>
-              <img
-                src="/largestBroker.svg"
-                alt="Zerodha Ecosystem"
-                style={{ width: "80%", maxWidth: "260px", margin: "0 auto" }}
-                onError={(e) => {
-                  e.target.style.display = "none";
-                }}
-              />
-            </div>
+            {!imgError && (
+              <div style={{ textAlign: "center", marginBottom: "25px" }}>
+                <img
+                  src="/largestBroker.svg"
+                  alt="Zerodha Ecosystem"
+                  style={{ width: "80%", maxWidth: "260px", margin: "0 auto" }}
+                  onError={() => setImgError(true)}
+                />
+              </div>
+            )}
 
-            <h5 style={{ fontWeight: "600", color: "#333", marginBottom: "16px" }}>
+            <h2 style={{ fontSize: "1.25rem", fontWeight: "600", color: "#333", marginBottom: "16px" }}>
               Why trade with Zerodha?
-            </h5>
+            </h2>
 
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {[
@@ -164,9 +174,9 @@ function Signup() {
           {/* Right Column: Signup Form */}
           <div className="col-lg-6 ps-lg-4">
             <div style={{ marginBottom: "24px" }}>
-              <h3 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#333", marginBottom: "6px" }}>
+              <h2 style={{ fontSize: "1.5rem", fontWeight: "600", color: "#333", marginBottom: "6px" }}>
                 Create your account
-              </h3>
+              </h2>
               <p style={{ fontSize: "13px", color: "#888" }}>
                 Enter your details below to get started in 2 minutes
               </p>
@@ -175,6 +185,7 @@ function Signup() {
             {/* Error Message */}
             {error && (
               <div
+                role="alert"
                 style={{
                   backgroundColor: "#ffebee",
                   color: "#c62828",
@@ -188,7 +199,7 @@ function Signup() {
                   gap: "8px",
                 }}
               >
-                <span>⚠️</span>
+                <span role="img" aria-label="warning">⚠️</span>
                 <span>{error}</span>
               </div>
             )}
@@ -196,6 +207,7 @@ function Signup() {
             {/* Success Message */}
             {successMsg && (
               <div
+                role="status"
                 style={{
                   backgroundColor: "#e8f5e9",
                   color: "#2e7d32",
@@ -209,18 +221,19 @@ function Signup() {
                   gap: "8px",
                 }}
               >
-                <span>✅</span>
+                <span role="img" aria-label="success">✅</span>
                 <span>{successMsg}</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
               {/* Full Name */}
               <div style={{ marginBottom: "16px" }}>
-                <label style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "#444", marginBottom: "6px" }}>
+                <label htmlFor="username" style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "#444", marginBottom: "6px" }}>
                   Full Name / Username
                 </label>
                 <input
+                  id="username"
                   type="text"
                   name="username"
                   value={formData.username}
@@ -234,19 +247,17 @@ function Signup() {
                     border: "1px solid #ddd",
                     fontSize: "14px",
                     outline: "none",
-                    transition: "border 0.2s",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#387ed1")}
-                  onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                 />
               </div>
 
               {/* Email */}
               <div style={{ marginBottom: "16px" }}>
-                <label style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "#444", marginBottom: "6px" }}>
+                <label htmlFor="email" style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "#444", marginBottom: "6px" }}>
                   Email Address
                 </label>
                 <input
+                  id="email"
                   type="email"
                   name="email"
                   value={formData.email}
@@ -260,20 +271,18 @@ function Signup() {
                     border: "1px solid #ddd",
                     fontSize: "14px",
                     outline: "none",
-                    transition: "border 0.2s",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#387ed1")}
-                  onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                 />
               </div>
 
               {/* Password */}
               <div style={{ marginBottom: "16px" }}>
-                <label style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "#444", marginBottom: "6px" }}>
+                <label htmlFor="password" style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "#444", marginBottom: "6px" }}>
                   Password
                 </label>
                 <div style={{ position: "relative" }}>
                   <input
+                    id="password"
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={formData.password}
@@ -287,14 +296,12 @@ function Signup() {
                       border: "1px solid #ddd",
                       fontSize: "14px",
                       outline: "none",
-                      transition: "border 0.2s",
                     }}
-                    onFocus={(e) => (e.target.style.borderColor = "#387ed1")}
-                    onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                   />
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                     style={{
                       position: "absolute",
                       right: "12px",
@@ -305,6 +312,7 @@ function Signup() {
                       color: "#888",
                       cursor: "pointer",
                       fontSize: "12px",
+                      fontWeight: "500",
                     }}
                   >
                     {showPassword ? "Hide" : "Show"}
@@ -314,10 +322,11 @@ function Signup() {
 
               {/* Confirm Password */}
               <div style={{ marginBottom: "18px" }}>
-                <label style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "#444", marginBottom: "6px" }}>
+                <label htmlFor="confirmPassword" style={{ display: "block", fontSize: "13px", fontWeight: "500", color: "#444", marginBottom: "6px" }}>
                   Confirm Password
                 </label>
                 <input
+                  id="confirmPassword"
                   type={showPassword ? "text" : "password"}
                   name="confirmPassword"
                   value={formData.confirmPassword}
@@ -331,10 +340,7 @@ function Signup() {
                     border: "1px solid #ddd",
                     fontSize: "14px",
                     outline: "none",
-                    transition: "border 0.2s",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#387ed1")}
-                  onBlur={(e) => (e.target.style.borderColor = "#ddd")}
                 />
               </div>
 
@@ -370,20 +376,14 @@ function Signup() {
                   transition: "background 0.2s",
                   boxShadow: "0 2px 6px rgba(56, 126, 209, 0.3)",
                 }}
-                onMouseEnter={(e) => {
-                  if (!loading) e.target.style.backgroundColor = "#2b6cb0";
-                }}
-                onMouseLeave={(e) => {
-                  if (!loading) e.target.style.backgroundColor = "#387ed1";
-                }}
               >
                 {loading ? "Creating Account..." : "Continue to Kite"}
               </button>
 
-              {/* Already have an account? */}
+              {/* Login Navigation Link */}
               <div className="text-center mt-3" style={{ fontSize: "13px", color: "#666" }}>
                 Already have an account?{" "}
-                <Link to="/Login" style={{ color: "#387ed1", fontWeight: "600", textDecoration: "none" }}>
+                <Link to="/login" style={{ color: "#387ed1", fontWeight: "600", textDecoration: "none" }}>
                   Log in here
                 </Link>
               </div>

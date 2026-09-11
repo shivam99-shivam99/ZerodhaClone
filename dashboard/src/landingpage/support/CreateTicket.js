@@ -108,7 +108,7 @@ function CreateTicket() {
                     >
                       {topic.links.map((link, linkIdx) => (
                         <li key={linkIdx}>
-                          <a href="#" className="text-decoration-none text-primary" style={{ fontSize: "0.9rem" }}>
+                          <a href="/" className="text-decoration-none text-primary" style={{ fontSize: "0.9rem" }}>
                             {link}
                           </a>
                         </li>
@@ -122,28 +122,28 @@ function CreateTicket() {
         </div>
 
         {/* Right Side: Sidebar */}
-       <div className="col-lg-4">
-  {/* Top Notice Box */}
-  <div
-    className="p-3 mb-4 rounded shadow-sm"
-    style={{ 
-      backgroundColor: "#FFF5E7", 
-      borderLeft: "5px solid #FF8C00" 
-    }}
-  >
-    <ul className="ps-3 mb-0 d-flex flex-column gap-2" style={{ fontSize: "0.9rem" }}>
-      <li>
-        <a href="#" className="text-decoration-underline text-primary">
-          <h6>Surveillance measure on scrips - August 2026</h6>
-        </a>
-      </li>
-      <li>
-        <a href="#" className="text-decoration-underline text-primary">
-          <h6>Latest Intraday leverages and Square-off timings</h6>
-        </a>
-      </li>
-    </ul>
-  </div>
+        <div className="col-lg-4">
+          {/* Top Notice Box */}
+          <div
+            className="p-3 mb-4 rounded shadow-sm"
+            style={{ 
+              backgroundColor: "#FFF5E7", 
+              borderLeft: "5px solid #FF8C00" 
+            }}
+          >
+            <ul className="ps-3 mb-0 d-flex flex-column gap-2" style={{ fontSize: "0.9rem" }}>
+              <li>
+                <a href="/" className="text-decoration-underline text-primary">
+                  <h6 className="mb-0">Surveillance measure on scrips - August 2026</h6>
+                </a>
+              </li>
+              <li>
+                <a href="/" className="text-decoration-underline text-primary">
+                  <h6 className="mb-0">Latest Intraday leverages and Square-off timings</h6>
+                </a>
+              </li>
+            </ul>
+          </div>
 
           {/* Quick Links Card */}
           <div className="border rounded bg-white shadow-sm">
@@ -151,19 +151,19 @@ function CreateTicket() {
               Quick links
             </div>
             <div className="list-group list-group-flush" style={{ fontSize: "0.9rem" }}>
-              <a href="#" className="list-group-item list-group-item-action py-3 text-primary border-0 border-bottom">
+              <a href="/" className="list-group-item list-group-item-action py-3 text-primary border-0 border-bottom">
                 1. Track account opening
               </a>
-              <a href="#" className="list-group-item list-group-item-action py-3 text-primary border-0 border-bottom">
+              <a href="/" className="list-group-item list-group-item-action py-3 text-primary border-0 border-bottom">
                 2. Track segment activation
               </a>
-              <a href="#" className="list-group-item list-group-item-action py-3 text-primary border-0 border-bottom">
+              <a href="/" className="list-group-item list-group-item-action py-3 text-primary border-0 border-bottom">
                 3. Intraday margins
               </a>
-              <a href="#" className="list-group-item list-group-item-action py-3 text-primary border-0 border-bottom">
+              <a href="/" className="list-group-item list-group-item-action py-3 text-primary border-0 border-bottom">
                 4. Kite user manual
               </a>
-              <a href="#" className="list-group-item list-group-item-action py-3 text-primary border-0">
+              <a href="/" className="list-group-item list-group-item-action py-3 text-primary border-0">
                 5. Learn how to create a ticket
               </a>
             </div>
